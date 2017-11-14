@@ -51,10 +51,10 @@ def write_markdown_file(news):
         if os.path.exists(docs_path):
             md_file = codecs.open(
                 os.path.join(docs_path, file_name), 'wa', 'utf-8')
-            md_file.write(u"* Quick news\r\n")
+            md_file.write(u"* Quick news\r\n\r\n")
             for feed_new in news:
-                md_file.write("    [%s](%s)\r\n" % (feed_new['title'],
-                                                    feed_new['link']))
+                md_file.write("    [%s](%s)\r\n\r\n" % (feed_new['title'],
+                                                        feed_new['link']))
             md_file.flush()
             md_file.close()
         else:
