@@ -3,11 +3,14 @@ import os
 import time
 import codecs
 import feedparser
+from git import Repo
 
 rss_urls = [
     'http://www.freebuf.com/feed', 'http://paper.seebug.org/rss/',
     'https://evi1cg.me/feed', 'http://www.91ri.org/feed'
 ]
+
+repo_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
 
 def get_feeds_lastday_published(rss_url):
@@ -61,5 +64,23 @@ def write_markdown_file(news):
             os.mkdir(docs_path)
 
 
+def git_daily_news():
+    """ 提交md文件到远程仓库. """
+    timestamp = time.time()
+    time_tuple = time.localtime(timestamp)
+    current_year = time.strftime("%Y")
+    file_name = time.strftime("%m-%d-daily.md", time_tuple)
+    commit_tag = time.strftime("%Y-%m-%d-daily-news", time_tuple)
+    repo = Repo(repo_path)
+    index = repo.index
+    push_file_name = os.path.join("docs", current_year, file_name)
+    print push_file_name
+    index.add([push_file_name])
+    index.commit(commit_tag)
+    remote = repo.remote()
+    remote.push()
+
+
 if __name__ == '__main__':
     write_markdown_file(fetch_all_feeds())
+    git_daily_news()
