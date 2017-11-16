@@ -25,7 +25,10 @@ def get_feeds_lastday_published(rss_url):
         if entry.published_parsed is not None:
             entry_time_str = time.strftime("%Y-%m-%d", entry.published_parsed)
             if entry_time_str == time_str:
-                item = {'link': entry.link, 'title': entry.title}
+                item = {
+                    'link': entry.link,
+                    'title': entry.title,
+                }
                 lastday_published_news.append(item)
     return lastday_published_news
 
@@ -54,10 +57,11 @@ def write_markdown_file(news):
         if os.path.exists(docs_path):
             md_file = codecs.open(
                 os.path.join(docs_path, file_name), 'wa', 'utf-8')
-            md_file.write(u"* Quick news\r\n\r\n")
+            md_file.write(u"# Quick news\r\n\r\n")
             for feed_new in news:
-                md_file.write("    [%s](%s)\r\n\r\n" % (feed_new['title'],
-                                                        feed_new['link']))
+                md_file.write("## %s\r\n\r\n    %s\r\n\r\n" %
+                              (feed_new['title'], feed_new['link']))
+
             md_file.flush()
             md_file.close()
         else:
