@@ -1,4 +1,5 @@
 ## Quick news
+
 ## BUF 早餐铺 | 一加手机曝出后门；谷歌Browse-Secure扩展程序爬取用户社交信息；微软11月修复53个漏洞；Adobe 修复9款产品中的80个漏洞
 
 http://www.freebuf.com/news/154157.html
